@@ -11,15 +11,15 @@ Prompt the user to enter a search term and search method, execute the search, an
 
 ## usage
 #### main program
-1. Ensure you have a verson of python 3.0 or up installed.
-2. In terminal, navigate to the document_search directory.
+1. Ensure you have python 3 installed.
+2. In terminal, navigate to the document_search/src/ directory.
 3. Run command below and follow the prompts:
 ```
 python search_files.py
 ```
 #### Benchmarking Script
-1. Ensure you have a verson of python 3.0 or up installed.
-2. In terminal, navigate to the document_search directory.
+1. Ensure you have python 3 installed.
+2. In terminal, navigate to the document_search/src/ directory.
 3. Run command below and follow the prompts:
 ```
 python benchmarking.py

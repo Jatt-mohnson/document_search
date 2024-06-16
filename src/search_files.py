@@ -1,38 +1,47 @@
-import glob
-from utility import ROOT, process_text, sorted_dictionary
+import sys
+# adding the directory to the path
+sys.path.append('../')
+from src.utility import ROOT, process_text, sorted_dictionary, file_list
+
 
 def simple_string_match(phrase):
-    occurences = {}
-    count = 0
-    for file_path in glob.glob(f'{ROOT}/data/*.txt'):
+    file_count = {}
+
+    for file_path in file_list:
         with open(file_path, 'r') as file:
             processed_text = process_text(file.read()).split(' ')
             if phrase in processed_text:
                 count = processed_text.count(phrase)
+            else:
+                count = 0
+            file_count.update({file_path.split('/')[-1]: count})
 
-            occurences.update({file_path.split('/')[-1]: count})
-
-    return occurences
+    return file_count
 def regex_match(phrase):
     import re
-    occurences = {}
-    for file_path in glob.glob(f'{ROOT}/data/*.txt'):
+    file_count = {}
+    for file_path in file_list:
         with open(file_path, 'r') as file:
             #clean up the text
             processed_text = process_text(file.read())
 
             matches = re.findall(f'\\b{phrase}\\b', processed_text)
             count = len(matches)
-            occurences.update({file_path.split('/')[-1]: count})
+            file_count.update({file_path.split('/')[-1]: count})
 
-    return occurences
+    return file_count
 
 def search_index(phrase):
     import json
     with open(f'{ROOT}/indexes/word_index.json', 'r') as f:
         word_index = json.load(f)
-    occurences = word_index.get(phrase, {'No Results': 0})
-    return occurences
+    file_count = word_index.get(phrase, {'No Results': 0})
+
+    # add in files with 0 references
+    # This is faster than bogging down the actual index with files with 0 counts
+    [file_count.update({f.split('/')[-1]: 0}) for f in file_list if f.split('/')[-1] not in list(file_count.keys())]
+
+    return file_count
 
 if __name__ == "__main__":
     import time
@@ -59,7 +68,6 @@ if __name__ == "__main__":
     phrase_counts = search_function_dict.get(search_method, 'invalid choice')(search_term)
 
     print('Search Results: ')
-
     for file, count in sorted_dictionary(phrase_counts).items():
         print(f'\t{file} - {count} matches')
 

@@ -2,6 +2,7 @@ import os
 import glob
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+file_list = glob.glob(f'{ROOT}/data/*.txt')
 def process_text(text):
     import re
 
@@ -17,11 +18,10 @@ def create_word_index():
     import json
     word_index = {}
 
-    for file_path in glob.glob(f'{ROOT}/data/*.txt'):
+    for file_path in file_list:
         with open(file_path, 'r') as file:
-            # clean up the text
+
             processed_text = process_text(file.read()).split(' ')
-            print(processed_text)
             for token in processed_text:
                 occurrences = processed_text.count(token)
                 if token in word_index:
@@ -35,5 +35,4 @@ def create_word_index():
 
 def sorted_dictionary(dictionary):
     sort_results = dict(sorted(dictionary.items(), key=lambda item: item[1], reverse=True))
-
     return sort_results
