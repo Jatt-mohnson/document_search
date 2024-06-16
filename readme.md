@@ -24,6 +24,12 @@ python search_files.py
 ```
 python benchmarking.py
 ```
+#### Testing
+1. pip install pytest if it is not already installed
+2. run command below from the tests directory
+```
+pytest
+```
 
 ## Performance Test Results
 - simple_string_match:
@@ -43,6 +49,7 @@ search term. This indexing benefit will continue to grow as more documents are a
 
 ## How can we continue to scale?
 The first step to scaling this program is to move it from a local machine and into the cloud which opens up a wide
-variety of both software and hardware scaling options. Once in the cloud we can leverage autoscaling and load balancers
+variety of both software and hardware scaling options. Once in the cloud, we can leverage autoscaling and load balancers
 to ensure our app is always able to handle spikes in request volume or storage needs. Beyond relying on hardware scaling 
-we can also use more modern software like elasticsearch which uses distributed computing to faster search our index.
+we can also use more modern software like elasticsearch which uses distributed computing and partitioned indexes to faster
+search our index.
