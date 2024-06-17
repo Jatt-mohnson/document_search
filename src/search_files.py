@@ -56,14 +56,14 @@ if __name__ == "__main__":
 
     search_term = 'x x'
     while len(search_term.split(' ')) > 1:
-        search_term = input('Enter the search term: ')
+        search_term = input('Enter the search term: ').strip(' ')
         if len(search_term.split(' ')) > 1:
             print('Please limit your search to a single word')
     search_term = process_text(search_term)
 
     search_method = ''
     while search_method not in ['1', '2', '3']:
-        search_method = input('1) String Match 2) Regular Expression 3) Indexed\nChoose method: ')
+        search_method = input('1) String Match 2) Regular Expression 3) Indexed\nChoose method: ').strip(' ')
         if search_method not in ['1', '2', '3']:
             print('invalid search method, please select from below choices\n')
 
