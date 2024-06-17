@@ -49,8 +49,13 @@ The index search method is fastest, because all the text processing has already 
 search term. This indexing benefit will continue to grow as more documents are added into the catalog. 
 
 ## How can we continue to scale?
-The first step to scaling this program is to move it from a local machine and into the cloud which opens up a wide
-variety of both software and hardware scaling options. Once in the cloud, we can leverage autoscaling and load balancers
-to ensure our app is always able to handle spikes in request volume or storage needs. Beyond relying on hardware scaling 
-we can also use more modern software like elasticsearch which uses distributed computing and partitioned indexes to faster
-search our index.
+The first step to scaling this program is to move it from a local machine and into the cloud. Once our app and data is hosted
+in one of the major cloud providers we can take advantage of a wide variety of both software and hardware scaling options. 
+From the hardware perspective, we could leverage autoscaling to increase our compute and storage either vertically or horizontally
+to ensure our app is always able to handle spikes in request volume or storage needs. If we decide to scale vertically, 
+then we will need to make sure our program's code is asynchronous so that it can handle multiple requests at once. 
+If we decide to scale horizontally then we will want to implement a load balancer to make sure requests are spread evenly
+across our machines. However, rather than manually building and managing all of this new hardware it is likely smarter to
+use a software already built to perform document search tasks at scale. One popular option would be Elasticsearch. 
+Elasticsearch takes a similar approach that I wrote for the index search method but uses scalable distributed computing and 
+partitioned indexes to faster return results.
