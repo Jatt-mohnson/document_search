@@ -20,13 +20,14 @@ python search_files.py
 #### Benchmarking Script
 1. Ensure you have python 3 installed.
 2. In terminal, navigate to the document_search/src/ directory.
-3. Run command below and follow the prompts:
+3. Run command below:
 ```
 python benchmarking.py
 ```
 #### Testing
 1. pip install pytest if it is not already installed
-2. run command below from the tests directory
+2. In terminal, navigate to the document_search/tests/ directory.
+3. Run command below:
 ```
 pytest
 ```

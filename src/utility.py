@@ -1,8 +1,6 @@
-import os
 import glob
+from config import env_paths
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-file_list = glob.glob(f'{ROOT}/data/*.txt')
 def process_text(text):
     import re
 
@@ -14,11 +12,11 @@ def process_text(text):
 
     return processed_text
 
-def create_word_index():
+def create_word_index(env='dev'):
     import json
     word_index = {}
 
-    for file_path in file_list:
+    for file_path in glob.glob(env_paths[env]['files']):
         with open(file_path, 'r') as file:
 
             processed_text = process_text(file.read()).split(' ')
@@ -28,11 +26,12 @@ def create_word_index():
                     word_index[token].update({file_path.split('/')[-1]: occurrences})
                 else:
                     word_index[token] = {file_path.split('/')[-1]: occurrences}
-    with open(f'{ROOT}/indexes/word_index.json', 'w') as f:
+    with open(env_paths[env]['index']+'/word_index.json', 'w') as f:
         json.dump(word_index, f)
 
     return word_index
 
 def sorted_dictionary(dictionary):
     sort_results = dict(sorted(dictionary.items(), key=lambda item: item[1], reverse=True))
+
     return sort_results
